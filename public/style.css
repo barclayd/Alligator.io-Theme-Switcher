@@ -4,7 +4,69 @@ body {
   font-family: 'PT Sans', sans-serif;
 }
 
+:root {
+  --background: #000000;
+  --header-background: linear-gradient(
+    to right,
+    rgba(107, 183, 86, 0.95),
+    rgba(0, 143, 104, 0.95)
+  );
+  --colour: #ffffff;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.navbar {
+  height: 70px;
+  width: 100%;
+  background: var(--background);
+  color: var(--colour);
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.navbar-nav > li:not(first-child) {
+  margin: 0 20px;
+}
+
+.navbar-nav > li:first-child {
+  margin-left: 0;
+}
+
+header {
+  background: var(--header-background);
+  margin-bottom: 1em;
+  padding-bottom: 3.5em;
+  text-align: center;
+  color: var(--colour);
+  clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 0 65%, 0 0);
+}
+
+header img {
+  margin: 2em 0 0;
+  width: 180px;
+  height: 180px;
+  border-radius: 3px;
+}
+
+header h1 {
+  font-size: 3em;
+}
+
+header h4 {
+  font-size: 1.2em;
+  margin-bottom: 30px;
 }
