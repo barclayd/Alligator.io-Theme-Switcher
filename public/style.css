@@ -2,8 +2,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
   background: var(--theme-background);
-  transition: background-color 0.25s ease-out;
+  transition: background 500ms ease-out, color 1000ms ease-in-out;
 }
 
 :root {
@@ -116,6 +117,7 @@ main {
   padding: 0 0.9rem;
   position: relative;
   margin: 50px auto 0;
+  font-weight: 400;
 }
 
 header {
@@ -124,6 +126,7 @@ header {
   padding-bottom: 3.5em;
   text-align: center;
   color: var(--colour);
+  font-weight: 300;
   clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 0 65%, 0 0);
 }
 
@@ -137,12 +140,13 @@ header img {
 header h1 {
   font-size: 3em;
   font-style: italic;
-  font-weight: lighter;
+  font-weight: 300;
 }
 
 header h4 {
   font-size: 1.2em;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  font-weight: 300;
   line-height: 2.5rem;
   text-shadow: 0 0 14px rgba(0, 0, 0, 0.28);
 }
