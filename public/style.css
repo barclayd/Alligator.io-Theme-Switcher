@@ -1,17 +1,77 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  background: var(--theme-background);
+  transition: background 500ms ease-out, color 1000ms ease-in-out;
 }
 
 :root {
-  --background: #000000;
-  --header-background: linear-gradient(
+  --subtle: rgba(0, 0, 0, 0.1);
+  --light-theme-gradient: linear-gradient(
     to right,
     rgba(107, 183, 86, 0.95),
     rgba(0, 143, 104, 0.95)
   );
+  --light-theme-background: #ffffff;
+  --solarized-theme-background: #fdf6e3;
+  --solarized-dark-theme-background: #002b36;
+  --dark-theme-background: #222831;
+  --dark-theme-gradient: linear-gradient(to right, #302e24, #28313e);
+  --solarized-theme-gradient: linear-gradient(to right, #afaa9a, #d6d0be);
+  --solarized-dark-theme-gradient: linear-gradient(to right, #013948, #011c23);
+  --non-solarized-border-top: #fae042;
+  --solarized-border-top: #b58900;
   --colour: #ffffff;
+  --light-text-colour: #555555;
+  --dark-text-colour: #f9ffee;
+  --solarized-text-colour: #586e75;
+  --solarized-dark-text-colour: #7d99a3;
+  --theme-border: #efbb35;
+  --dark-solarized-theme-border: #b58900;
+}
+
+.light {
+  --nav-background: var(--light-theme-gradient);
+  --header-background: var(--light-theme-gradient);
+  --dropdown-background: #008f68;
+  --theme-background: var(--light-theme-background);
+  --dropdown-border-top: var(--non-solarized-border-top);
+  --text-colour: var(--light-text-colour);
+  --heading-colour: #555555;
+}
+
+.dark {
+  --nav-background: var(--dark-theme-gradient);
+  --header-background: var(--dark-theme-gradient);
+  --dropdown-background: #008f68;
+  --theme-background: var(--dark-theme-background);
+  --dropdown-border-top: var(--non-solarized-border-top);
+  --text-colour: var(--dark-text-colour);
+  --heading-colour: #f9ffee;
+}
+
+.solarized {
+  --nav-background: var(--solarized-theme-gradient);
+  --header-background: var(--solarized-theme-gradient);
+  --dropdown-background: #657b83;
+  --theme-border: #dbab15;
+  --theme-background: var(--solarized-theme-background);
+  --dropdown-border-top: var(--solarized-border-top);
+  --text-colour: var(--solarized-text-colour);
+  --heading-colour: #586e75;
+}
+
+.solarized-dark {
+  --nav-background: var(--solarized-dark-theme-gradient);
+  --header-background: var(--solarized-dark-theme-gradient);
+  --theme-border: var(--dark-solarized-theme-border);
+  --dropdown-background: #011c23;
+  --theme-background: var(--solarized-dark-theme-background);
+  --dropdown-border-top: var(--solarized-border-top);
+  --text-colour: var(--solarized-dark-text-colour);
+  --heading-colour: #93a1a1;
 }
 
 ul {
@@ -27,7 +87,7 @@ a {
 .navbar {
   height: 70px;
   width: 100%;
-  background: var(--background);
+  background: var(--nav-background);
   color: var(--colour);
 }
 
@@ -38,12 +98,26 @@ a {
   height: 100%;
 }
 
+.navbar-nav > li {
+  padding: 0 1.25rem;
+  line-height: 3.75em;
+}
+
 .navbar-nav > li:not(first-child) {
-  margin: 0 20px;
+  margin: 0 0.75rem;
 }
 
 .navbar-nav > li:first-child {
   margin-left: 0;
+}
+
+main {
+  color: var(--text-colour);
+  max-width: 55rem;
+  padding: 0 0.9rem;
+  position: relative;
+  margin: 50px auto 0;
+  font-weight: 400;
 }
 
 header {
@@ -52,6 +126,7 @@ header {
   padding-bottom: 3.5em;
   text-align: center;
   color: var(--colour);
+  font-weight: 300;
   clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 0 65%, 0 0);
 }
 
@@ -64,9 +139,88 @@ header img {
 
 header h1 {
   font-size: 3em;
+  font-style: italic;
+  font-weight: 300;
 }
 
 header h4 {
   font-size: 1.2em;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  font-weight: 300;
+  line-height: 2.5rem;
+  text-shadow: 0 0 14px rgba(0, 0, 0, 0.28);
+}
+
+.dropdown {
+  position: absolute;
+  width: 500px;
+  opacity: 0;
+  z-index: 2;
+  background: var(--dropdown-background);
+  transition: opacity 0.15s ease-out;
+  box-shadow: 0 2px 8px var(--subtle);
+  border-top: 2px solid var(--dropdown-border-top);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem;
+  transform: translateX(-40%);
+}
+
+.switch-theme::before {
+  content: '';
+  background: var(--theme-background);
+  border: 2px solid var(--theme-border);
+  border-radius: 50%;
+  box-shadow: 0 0 5px var(--subtle);
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -3px;
+}
+
+.has-dropdown:hover .dropdown {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.theme-toggle:before {
+  content: '';
+  border-radius: 50%;
+  box-shadow: 0 0 5px var(--subtle);
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -3px;
+  margin-right: 0.45rem;
+  background: var(--theme-background);
+  border: 2px solid var(--theme-border);
+}
+
+.theme-toggle#light:before {
+  background: var(--light-theme-background);
+  border: 2px solid #6db65b;
+}
+
+.theme-toggle#dark:before {
+  background: var(--dark-theme-background);
+}
+
+.theme-toggle#solarized:before {
+  background: var(--solarized-theme-background);
+}
+
+.theme-toggle#solarized-dark:before {
+  background: var(--solarized-dark-theme-background);
+}
+
+.heading {
+  font-size: 1.5em;
+  margin: 0.5em 0 1.5em 0;
+  text-align: center;
+  color: var(--heading-colour);
 }
